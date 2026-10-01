@@ -1,0 +1,17 @@
+{
+  "siteName": "ひとり暮らしハック",
+  "tagline": "なちくんと学ぶ、ひとり暮らしの節約・時短ハック",
+  "baseUrl": "https://onanchisan.github.io/hitorigurashi-hack",
+  "operatorName": "ひとり暮らしハックなち",
+  "tiktokUrl": "https://www.tiktok.com/@hitorigurashi_nachi",
+  "contactText": "運営：ひとり暮らしハックなち（AIによる制作補助あり）",
+  "contactUrl": "",
+  "adsenseClient": "",
+  "googleSiteVerification": "",
+  "affiliateBlocks": {},
+  "categories": {
+    "laundry": { "name": "洗濯・掃除", "desc": "洗剤の使い方や部屋干しなど、毎日の洗濯・掃除のコツ" },
+    "procedure": { "name": "暮らしの手続き", "desc": "引っ越し・新生活で必要な手続きの期限と流れ" },
+    "bousai": { "name": "防災", "desc": "ひとり暮らしの備蓄や、いざというときの備え" }
+  }
+}

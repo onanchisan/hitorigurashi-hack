@@ -45,13 +45,14 @@ footer{background:#3a2410;color:#f6e7c8;padding:18px 16px;font-size:.85rem;margi
 ol,ul{padding-left:1.4em}li{margin:.25em 0}details{background:#fff;border:1px solid var(--line);border-radius:10px;padding:8px 14px;margin:8px 0}summary{cursor:pointer;font-weight:700}`;
 fs.writeFileSync(path.join(out, 'style.css'), css);
 
+const gaScript = cfg.googleAnalyticsId ? `<script async src="https://www.googletagmanager.com/gtag/js?id=${esc(cfg.googleAnalyticsId)}"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','${esc(cfg.googleAnalyticsId)}');</script>` : '';
 const adsScript = cfg.adsenseClient ? `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${esc(cfg.adsenseClient)}" crossorigin="anonymous"></script>` : '';
 const nav = `<a href="${BASE}/">ホーム</a>${Object.entries(cfg.categories).map(([k, c]) => `<a href="${BASE}/c/${k}.html">${esc(c.name)}</a>`).join('')}<a href="${BASE}/about.html">このサイトについて</a>`;
 
 const page = ({ title, desc, path: p, body, ld, noTitleSuffix }) => `<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${esc(title)}${noTitleSuffix ? '' : '｜' + esc(cfg.siteName)}</title><meta name="description" content="${esc(desc)}"><link rel="canonical" href="${BASE}${p}"><link rel="stylesheet" href="${BASE}/style.css">
 <meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(desc)}"><meta property="og:type" content="article"><meta property="og:url" content="${BASE}${p}"><meta property="og:image" content="${BASE}/img/nachi-smile.png">
-${cfg.googleSiteVerification ? `<meta name="google-site-verification" content="${esc(cfg.googleSiteVerification)}">` : ''}${ld ? `<script type="application/ld+json">${JSON.stringify(ld)}</script>` : ''}${adsScript}</head>
+${cfg.googleSiteVerification ? `<meta name="google-site-verification" content="${esc(cfg.googleSiteVerification)}">` : ''}${ld ? `<script type="application/ld+json">${JSON.stringify(ld)}</script>` : ''}${gaScript}${adsScript}</head>
 <body><header><div class="w"><a class="brand" href="${BASE}/"><img src="${BASE}/img/nachi-smile.png" alt="なちくん"><span><strong>${esc(cfg.siteName)}</strong><span>${esc(cfg.tagline)}</span></span></a><nav>${nav}</nav></div></header>
 <main class="w">${body}</main>
 <footer><div class="w">${esc(cfg.contactText)}<br>情報は公的機関・メーカー等の公式情報をもとに、AIの補助を受けて作成しています。内容は確認日時点のもので、変更される場合があります。最新情報は各公式サイトでご確認ください。<br><a href="${BASE}/about.html">このサイトについて・免責・プライバシーポリシー</a>　<a href="${esc(cfg.tiktokUrl)}" rel="noopener">TikTok</a></div></footer></body></html>`;
@@ -116,7 +117,7 @@ write('about.html', page({
 <h2>AIの利用について</h2><p>記事・動画の企画、文章の作成、動画の制作には、AI（Claude）の補助を利用しています。公開前に、出典と記載内容の整合を確認しています。それでも誤りが含まれる可能性があるため、重要な手続きや製品の使用にあたっては、必ず公式の最新情報をご確認ください。動画の音声は合成音声（VOICEVOX：猫使アル）です。</p>
 <h2>免責事項</h2><p>本サイトの情報は、確認日時点のものです。制度・価格・製品仕様は予告なく変更されることがあります。本サイトの情報を利用して生じた損害について、当サイトは責任を負いません。個別の状況に関する判断は、公的機関やメーカー、専門家にご相談ください。</p>
 <h2>広告・アフィリエイトについて</h2><p>当サイトは、今後、広告（Google AdSense等）やアフィリエイトプログラムを利用する場合があります。広告・アフィリエイトリンクを含む記事・箇所には「PR」と表示します。広告の有無によって、記事の内容や評価を変えることはありません。</p>
-<h2>プライバシーポリシー</h2><p>当サイトは、広告配信・アクセス解析のために、Cookie等を利用する場合があります。広告配信事業者は、ユーザーの興味に応じた広告を表示するためにCookieを使用することがあります。Cookieは、ブラウザの設定で無効にできます。Googleアナリティクス等を導入した場合は、本ページに追記します。取得した情報は、サイトの改善以外の目的には使用しません。</p>
+<h2>プライバシーポリシー</h2><p>当サイトは、広告配信・アクセス解析のために、Cookie等を利用する場合があります。広告配信事業者は、ユーザーの興味に応じた広告を表示するためにCookieを使用することがあります。Cookieは、ブラウザの設定で無効にできます。${cfg.googleAnalyticsId ? '当サイトは、アクセス状況を把握するために、Googleが提供するアクセス解析ツール「Googleアナリティクス」を利用しています。Googleアナリティクスは、Cookieを使用してトラフィックデータを収集します。このデータは匿名で収集されており、個人を特定するものではありません。収集を望まない場合は、Cookieを無効にするか、<a href="https://tools.google.com/dlpage/gaoptout?hl=ja" rel="noopener nofollow">Google アナリティクス オプトアウト アドオン</a>をご利用ください。詳しくは、<a href="https://policies.google.com/technologies/partner-sites?hl=ja" rel="noopener nofollow">Googleのポリシー</a>をご確認ください。' : ''}取得した情報は、サイトの改善以外の目的には使用しません。</p>
 <h2>著作権・引用について</h2><p>キャラクター「なちくん」のイラストは、運営者が作成した素材です。参照した公式情報の著作権は、各権利者に帰属します。当サイトは、出典を明記し、要約・加工して掲載しています。</p>
 <h2>お問い合わせ</h2><p>${cfg.contactUrl ? `<a href="${esc(cfg.contactUrl)}" rel="noopener">お問い合わせフォーム</a>` : 'お問い合わせの方法は準備中です。内容の誤りのご指摘は、TikTokアカウントのコメントまたはDMでお知らせください。'}</p>`,
 }));

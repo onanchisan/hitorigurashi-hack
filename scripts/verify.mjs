@@ -44,6 +44,8 @@ for (const f of files) {
 for (const f of ['index.html', 'about.html', 'sitemap.xml', 'robots.txt', 'style.css']) if (!fs.existsSync(path.join(docs, f))) errors.push(`${f}がない`);
 const about = fs.existsSync(path.join(docs, 'about.html')) ? fs.readFileSync(path.join(docs, 'about.html'), 'utf8') : '';
 for (const k of ['運営者', 'AIの利用', '免責事項', 'プライバシーポリシー', 'PR']) if (!about.includes(k)) errors.push(`about.htmlに「${k}」の記載がない`);
+if (cfg.googleAnalyticsId && !about.includes('Googleアナリティクス')) errors.push('GA導入済みなのにプライバシーポリシーに記載がない');
+if (cfg.googleAnalyticsId && !/^G-[A-Z0-9]+$/.test(cfg.googleAnalyticsId)) errors.push('googleAnalyticsIdの形式が不正（G-XXXXXXXXXX）');
 if (fs.existsSync(path.join(docs, 'sitemap.xml')) && fs.readFileSync(path.join(docs, 'sitemap.xml'), 'utf8').includes('YOUR-USER')) errors.push('sitemap.xmlのURLが仮の値');
 
 for (const w of warns) console.warn('警告: ' + w);
